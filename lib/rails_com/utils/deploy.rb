@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+require 'open3'
 
 module Deploy
   SHARED_DIRS = [
@@ -28,11 +29,11 @@ module Deploy
   def github_hmac(data)
     OpenSSL::HMAC.hexdigest('sha1', RailsCom.config.github_hmac_key, data)
   end
-  
+
   def shared_paths
     SHARED_DIRS + SHARED_FILES
   end
-  
+
   def init_shared_paths(root = '../shared')
     SHARED_DIRS.map do |dir|
       `mkdir -p #{root}/#{dir}`
@@ -54,7 +55,7 @@ module Deploy
     end.flatten
   end
 
-  def shes(env = Rails.env, skip_precompile: false)
+  def prepare_commands(env = Rails.env, skip_precompile: false)
     r = []
     r << "git pull"
     r += ln_shared_paths
@@ -66,9 +67,17 @@ module Deploy
   end
 
   def works(env = Rails.env, options = {})
-    shes(env, **options).each do |sh|
-      puts "doing: #{sh}"
-      `#{sh}`
+    prepare_commands(env, **options).each do |cmd|
+      exec_cmd(cmd)
+    end
+  end
+
+  def exec_cmd(cmd)
+    puts "doing: #{cmd}"
+    Open3.popen2e(cmd) do |_input, output_or_error, _wait_thr|
+      while (line = output_or_error.gets)
+        puts line
+      end
     end
   end
 
