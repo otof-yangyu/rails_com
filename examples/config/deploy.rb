@@ -48,7 +48,6 @@ task :setup do
   command %{ mkdir -p #{fetch :shared_path}/config }
   command %{ mkdir -p #{fetch :shared_path}/tmp/sockets }
   command %{ mkdir -p #{fetch :shared_path}/tmp/pids }
-binding.pry
   command %{ touch #{fetch :shared_path}/config/database.yml }
   command %{ touch #{fetch :shared_path}/config/elasticsearch.yml }
   command %{ touch #{fetch :shared_path}/config/secrets.yml }

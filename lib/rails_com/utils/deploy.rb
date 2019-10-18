@@ -60,8 +60,8 @@ module Deploy
     r << "git pull"
     r += ln_shared_paths
     r << "bundle install --without development test --path vendor/bundle --deployment"
-    r << "RAILS_ENV=#{env} bundle exec rake assets:precompile" unless skip_precompile
     r << "RAILS_ENV=#{env} bundle exec rake db:migrate"
+    r << "RAILS_ENV=#{env} bundle exec rake assets:precompile" unless skip_precompile
     r << "bundle exec pumactl restart"
     r
   end
