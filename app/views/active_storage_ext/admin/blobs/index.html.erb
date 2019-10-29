@@ -31,7 +31,7 @@
       <td><%= blob.key %></td>
       <td><%= blob.filename %></td>
       <td><%= blob.content_type %></td>
-      <td><%= simple_format(blob.metadata) %></td>
+      <td><%= simple_format_hash(blob.metadata) %></td>
       <td><%= number_to_human_size(blob.byte_size) %></td>
       <td><time><%= blob.created_at.to_s(:rfc822) %></time></td>
       <td>
