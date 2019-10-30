@@ -2,6 +2,8 @@
 module RailsCom::FormatHelper
 
   def simple_format_hash(hash_text, html_options = {}, options = {})
+    return '' if hash_text.blank?
+
     wrapper_tag = options.fetch(:wrapper_tag, :p)
 
     hash_text.map do |k, v|
