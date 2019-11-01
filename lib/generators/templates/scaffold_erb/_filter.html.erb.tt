@@ -1,7 +1,9 @@
-<%%= search_form_with model: <%= class_name %>.new do |f| %>
-  <div class="fields">
-    <%%= f.text_field :name %>
-    <%%= f.submit %>
-    <%%= link_to t('.clear'), filter_params(except: [:name]), class: 'ui button' %>
+<div class="ui sgheader">
+  <div class="search">
+    <%%= search_form_with builder: CustomFormBuilder do |f| %>
+        <%%= f.text_field :name %>
+        <%%= f.submit %>
+        <%%= link_to t('.clear'), filter_params(except: [:name]), class: 'ui button' %>
+    <%% end %>
   </div>
-<%% end %>
+</div>
