@@ -68,8 +68,8 @@ zh:
       messages:
         record_invalid: 验证失败：%{errors}
         restrict_dependent_destroy:
-          has_one: "Cannot delete record because a dependent %{record} exists"
-          has_many: "Cannot delete record because dependent %{record} exist"
+          has_one: "未能删除%{model}, 因为存在关联的其他记录"
+          has_many: "未能删除%{model}, 因为存在关联的其他记录"
   views:
     pagination:
       first: 第一页
