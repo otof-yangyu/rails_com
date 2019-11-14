@@ -21,17 +21,4 @@ class Com::CommonController < ApplicationController
     r = I18n.backend.translations[I18n.locale][:activerecord][:enum]
     render json: { locale: I18n.locale, values: r }
   end
-
-  def deploy
-    digest = request.headers['X-Hub-Signature'].to_s
-    digest.sub!('sha1=', '')
-
-    return unless digest == Deploy.github_hmac(request.body)
-
-    result = ''
-    Deploy.works
-
-    render plain: result
-  end
-
 end
